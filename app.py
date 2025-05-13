@@ -1,6 +1,30 @@
 import streamlit as st
 import joblib
 
+# Pemetaan kombinasi hasil ke kode dan link
+style_mapping = {
+    ("Active", "Sensing", "Visual", "Sequential"): (1, "https://cx.apps.binus.ac.id/enrol/index.php?id=2084"),
+    ("Active", "Sensing", "Visual", "Global"): (2, "https://cx.apps.binus.ac.id/enrol/index.php?id=2085"),
+    ("Active", "Sensing", "Verbal", "Sequential"): (3, "https://cx.apps.binus.ac.id/enrol/index.php?id=2086"),
+    ("Active", "Sensing", "Verbal", "Global"): (4, "https://cx.apps.binus.ac.id/enrol/index.php?id=2087"),
+    ("Active", "Intuitive", "Visual", "Sequential"): (5, "https://cx.apps.binus.ac.id/enrol/index.php?id=2088"),
+    ("Active", "Intuitive", "Visual", "Global"): (6, "https://cx.apps.binus.ac.id/enrol/index.php?id=2089"),
+    ("Active", "Intuitive", "Verbal", "Sequential"): (7, "https://cx.apps.binus.ac.id/enrol/index.php?id=2090"),
+    ("Active", "Intuitive", "Verbal", "Global"): (8, "https://cx.apps.binus.ac.id/enrol/index.php?id=2091"),
+    ("Reflective", "Sensing", "Visual", "Sequential"): (9, "https://cx.apps.binus.ac.id/enrol/index.php?id=2092"),
+    ("Reflective", "Sensing", "Visual", "Global"): (10, "https://cx.apps.binus.ac.id/enrol/index.php?id=2093"),
+    ("Reflective", "Sensing", "Verbal", "Sequential"): (11, "https://cx.apps.binus.ac.id/enrol/index.php?id=2094"),
+    ("Reflective", "Sensing", "Verbal", "Global"): (12, "https://cx.apps.binus.ac.id/enrol/index.php?id=2095"),
+    ("Reflective", "Intuitive", "Visual", "Sequential"): (13, "https://cx.apps.binus.ac.id/enrol/index.php?id=2096"),
+    ("Reflective", "Intuitive", "Visual", "Global"): (14, "https://cx.apps.binus.ac.id/enrol/index.php?id=2097"),
+    ("Reflective", "Intuitive", "Verbal", "Sequential"): (15, "https://cx.apps.binus.ac.id/enrol/index.php?id=2098"),
+    ("Reflective", "Intuitive", "Verbal", "Global"): (16, "https://cx.apps.binus.ac.id/enrol/index.php?id=2099")
+}
+
+# Ambil hasil prediksi
+style_key = (processing_pred, perception_pred, input_pred, understanding_pred)
+style_code, style_link = style_mapping.get(style_key, ("N/A", "#"))
+
 st.set_page_config(
     page_title="DwITA - Klasifikasi Pembelajaran",
     page_icon="icon/DwITA.png",
@@ -211,15 +235,22 @@ if st.session_state.show_results:
 
     st.markdown("---")
     st.caption("Terima kasih telah menggunakan sistem klasifikasi DwITA.")
-    
+
+    # Tampilkan hasil lengkap
+    st.markdown(f"""
+    **Kode Gaya Belajar Anda:** `{style_code}`  
+    **Kombinasi:** {processing_pred} + {perception_pred} + {input_pred} + {understanding_pred}  
+    🔗 [Klik di sini untuk materi yang sesuai](<{style_link}>)  
+    """)
+
     # Tombol navigasi hasil
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("↩️ Kembali ke Form Pertanyaan"):
-            st.session_state.show_results = False
-            st.session_state.prediction_submitted = False
-            st.rerun()
-    with col2:
-        if st.button("🔄 Mulai dari Awal"):
-            reset_forms()
-            st.rerun()
+    # col1, col2 = st.columns(2)
+    # with col1:
+    #     if st.button("↩️ Kembali ke Form Pertanyaan"):
+    #         st.session_state.show_results = False
+    #         st.session_state.prediction_submitted = False
+    #         st.rerun()
+    # with col2:
+    #     if st.button("🔄 Mulai dari Awal"):
+    #         reset_forms()
+    #         st.rerun()
