@@ -90,7 +90,7 @@ if st.session_state.info_submitted and not st.session_state.prediction_submitted
     st.success(f"Halo {st.session_state.name}! Silakan lanjutkan mengisi form klasifikasi gaya belajar di bawah ini.")
     st.markdown("---")
 
-    if st.button("Back to Form Informasi"):
+    if st.button("Back to Form"):
         reset_forms()
         st.rerun()
 
